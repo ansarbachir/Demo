@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author HP
  */
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v2/")
 public class controller {
     
     
