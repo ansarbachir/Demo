@@ -26,14 +26,14 @@ jobs:
                    mvn clean
                    mvn -B package --file pom.xml
 
-              - name: SonarQube Scan
-                env:
-                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                run: |
-                  mvn clean verify sonar:sonar
-                    -Dsonar.projectKey=DemoKey
-                    -Dsonar.host.url=http://localhost:9000
-                    -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+#              - name: SonarQube Scan
+#                env:
+#                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#                run: |
+#                  mvn clean verify sonar:sonar
+#                    -Dsonar.projectKey=DemoKey
+#                    -Dsonar.host.url=http://localhost:9000
+#                    -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
 
             - name: login to Docker hub
