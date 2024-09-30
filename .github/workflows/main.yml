@@ -5,6 +5,11 @@ on:
             - main
         pull_request:
             types: [opened, synchronize, reopened]
+        permissions:
+            pull-requests: write    
+            contents: read
+            metadata: read
+            checks: write    
 jobs:
     build-deploy: 
         name: Build and deploy spring boot application
