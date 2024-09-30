@@ -4,6 +4,12 @@ on:
     push:
         branches:
             - main
+            
+  permissions:
+    pull-requests: write
+    contents: read
+    metadata: read
+    checks: write
 jobs:
     build-deploy: 
         name: Build and deploy spring boot application
