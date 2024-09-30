@@ -38,22 +38,22 @@ jobs:
               run: 
                   mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar -Dsonar.organization=ansarbachir  -Dsonar.branch.name=main -Dsonar.projectKey=ansarbachir_Demo -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
               
-            - name: login to Docker hub
-              uses: docker/login-action@v1
-              with:
-                  username: ${{secrets.DOCKER_USERNAME}}
-                  password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
-              
-            - name: Push to docker hub
-              uses: docker/build-push-action@v2
-              with:
-                  context: .
-                  dockerfile: Dockerfile
-                  push: true
-                  tags: ${{secrets.DOCKER_USERNAME}}/spring-boot-application:today
-            
-            - name: Run docker container      
-              run: |
-                  docker run -d -p 8089:8080 ${{secrets.DOCKER_USERNAME}}/spring-boot-application:today
+#            - name: login to Docker hub
+#              uses: docker/login-action@v1
+#              with:
+#                  username: ${{secrets.DOCKER_USERNAME}}
+#                  password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
+#              
+#            - name: Push to docker hub
+#              uses: docker/build-push-action@v2
+#              with:
+#                  context: .
+#                  dockerfile: Dockerfile
+#                  push: true
+#                  tags: ${{secrets.DOCKER_USERNAME}}/spring-boot-application:today
+#            
+#            - name: Run docker container      
+#              run: |
+#                  docker run -d -p 8089:8080 ${{secrets.DOCKER_USERNAME}}/spring-boot-application:today
                   
                   
