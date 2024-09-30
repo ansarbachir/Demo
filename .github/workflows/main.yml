@@ -27,26 +27,47 @@ jobs:
                    mvn -B package --file pom.xml
                    
                    
-            - name: SonarQube Scan
-              uses: sonarsource/sonarqube-scan-action@v1
-              with:
-                  projectBaseDir: .
-                  args: >
-                    -Dsonar.organization=my-Org
-                    -Dsonar.projectKey=Demo
-              env:
-                  SONAR_TOKEN: ${{secrets.SONAR_TOKEN_9000}}
-                  SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL_9000}} 
+#            - name: SonarQube Scan
+#              uses: sonarsource/sonarqube-scan-action@v1
+#              with:
+#                  projectBaseDir: .
+#                  args: >
+#                    -Dsonar.organization=my-Org
+#                    -Dsonar.projectKey=Demo
+#              env:
+#                  SONAR_TOKEN: ${{secrets.SONAR_TOKEN_9000}}
+#                  SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL_9000}} 
                     
-              
-            - name: Build docker image
-              uses: docker/build-push-action@v2
-              with:
-                  context: .
-                  dockerfile: Dockerfile
-                  push: false
-                  tags: ${{secrets.DOCKER_USERNAME}}/spring-boot-application:today
-                  
+                    
+                    
+               # Step 5: Run SonarQube analysis
+              - name: SonarQube Scan
+                env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                run: |
+                  mvn clean verify sonar:sonar
+                    -Dsonar.projectKey=DemoKey 
+                    -Dsonar.host.url= http://localhost:9000
+                    -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+              # Optional: Step 6: Notify GitHub with the SonarQube Quality Gate result
+              - name: SonarQube Quality Gate
+                if: always()
+                env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                run: |
+                  mvn sonar:sonar 
+                    -Dsonar.qualitygate.wait=true 
+                    -Dsonar.login=${{ secrets.SONAR_TOKEN }}        
+
+                    - name: Build docker image
+                      uses: docker/build-push-action@v2
+                      with:
+                          context: .
+                          dockerfile: Dockerfile
+                          push: false
+                          tags: ${{secrets.DOCKER_USERNAME}}/spring-boot-application:today
+
                   
             - name: login to Docker hub
               uses: docker/login-action@v1
