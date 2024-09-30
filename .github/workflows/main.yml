@@ -31,13 +31,12 @@ jobs:
               run: |
                    mvn clean
                    mvn -B package --file pom.xml
-
-            - name: Build and analyze SonarQube
-#              env:
+#env:
 #                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 #                SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+            - name: Build and analyze SonarQube
               run: 
-                  mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar -Dsonar.projectKey=DemoKey -Dsonar.host.url=http://localhost:9000/  -Dsonar.login=sqa_6034f4d4c5e111feb315d1ff26be8ebd84be5962
+                  mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar -Dsonar.projectKey=ansarbachir:demo -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
               
             - name: login to Docker hub
               uses: docker/login-action@v1
