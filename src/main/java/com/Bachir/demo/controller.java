@@ -4,6 +4,8 @@
  */
 package com.Bachir.demo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v2/")
 public class controller {
-    
-    
     @GetMapping
     public String getTime(){
-        return new Date().toString();
+        LocalDateTime currentDateTime =   LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        return "Current Date and Time: " +currentDateTime.format(formatter);
     }
-    
     @GetMapping("{name}")
     public String sayHello(@PathVariable("name") String name){
         return "Hello "+name;
