@@ -1,6 +1,5 @@
 create_file:
-    image: alpine
+    tags: 
+        - "ubuntu"
     script:
-        - echo "Building ..."
-        - mkdir build
-        - touch build/somefile.txt
+        - echo "Building ...""
