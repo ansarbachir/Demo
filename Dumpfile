@@ -4,6 +4,7 @@ Maven goal : sonar:sonar -Dsonar.login=squ_c23358ead1c03c288db7ba4a0b9c60e638f6e
 
 
 
+
 ###  OWASP Dependency-Check
 
 mvn dependency-check:check
